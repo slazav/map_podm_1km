@@ -7,7 +7,7 @@
 mkdir -p -- "$fig_dir"
 
 #for f in $vmap_dir/*.vmap; do
-for v in $vmap_dir/o37-13{3,4,5}.vmap; do
+for v in $vmap_dir/o37-13{3,4,5,6,7}.vmap; do
   base=$(basename "$v" .vmap);
   f="$fig_dir/$base.fig"
   l="$lab_dir/$base.vmap"
@@ -28,7 +28,7 @@ for v in $vmap_dir/o37-13{3,4,5}.vmap; do
             -o "$f"\
             --rscale $rscale --name $base --range_nom=$base
 
-    rm -f -- "$f.vmap"
+    rm -f -- "$base.vmap"
   fi
 
 done
