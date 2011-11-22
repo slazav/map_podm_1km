@@ -1,0 +1,23 @@
+#!/bin/sh -eu
+
+. settings.sh
+
+GEOM=350000x400000+7240000+5970000
+
+cd "$png_dir"
+
+mapsoft_convert *.map *.plt -g "$GEOM" -o index.jpg\
+  --draw_borders=1 --dpi=5 --scale=2e-5 --htm=index.htm
+echo >> index.htm
+ls -1 *.png >> index.htm
+
+sed -i -e '
+s|</body></html>|<ul>\n|
+s|^\(\([a-z0-9-]\+\).png\)$|<li>\2: <a href="\1">[PNG]</a> <a href="\2.map">[MAP]</a>|
+$a</ul>\
+</body>\
+</html>
+ ' index.htm
+ 
+
+cd -
