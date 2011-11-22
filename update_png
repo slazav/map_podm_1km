@@ -1,0 +1,25 @@
+#!/bin/sh -eu
+
+. settings.sh
+
+mkdir -p -- "$png_dir"
+for f in $fig_dir/*.fig; do
+  base=$(basename $f .fig)
+  l="$lab_dir/$base.vmap"
+  p="$png_dir/$base.png"
+  m="$png_dir/$base.map"
+
+  if [ "$f" -nt "$l" ]; then
+    echo "saving labels: $base"
+    vmap_copy "$f" -o "$l" --skip_all --split_labels
+  fi
+
+  if [ "$f" -nt "$p" ]; then
+    echo "creating png: $base"
+    vmap_render --contours 0 -DN --nom "$base" -d150 --map $m $f $p
+    pngtopnm $p | pnmremap -mapfile=/usr/share/mapsoft/mmb.cmap.pnm |\
+      pnmtopng > ${p}.tmp
+    sed -i -e "3s|^$png_dir/||" "$m"
+    mv ${p}.tmp $p
+  fi
+done
