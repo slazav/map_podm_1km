@@ -29,7 +29,8 @@ for base in $(cat list.txt); do
     vmap_copy -v --skip_labels "$base.vmap"\
             $label_src --read_labels --skip_all --split_labels\
             -o "$f"\
-            --rscale $rscale --name $base --range_nom=$base
+            --rscale $rscale --name $base\
+            --range_nom=$base $border
 
     rm -f -- "$base.vmap"
   fi
