@@ -7,8 +7,8 @@
 mkdir -p -- "$fig_dir"
 
 #for f in $vmap_dir/*.vmap; do
-for v in $vmap_dir/o37-13{3,4,5,6,7}.vmap; do
-  base=$(basename "$v" .vmap);
+for base in $(cat list.txt); do
+  v="$vmap_dir/$base.vmap"
   f="$fig_dir/$base.fig"
   l="$lab_dir/$base.vmap"
 
