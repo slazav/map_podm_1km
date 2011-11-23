@@ -16,12 +16,15 @@ for base in $(cat list.txt); do
     echo "updating $base"
     vmap_1km_filter 1 "$v" "$base.vmap"
     label_src=
+    border=
     if [ -f "$l" ]; then
       label_src="$l"
     elif [ -f "$f" ]; then
       label_src="$f"
+      border="--keep_border"
     else
       label_src="$base.vmap"
+      border="--set_brd_from_range"
     fi
     vmap_copy -v --skip_labels "$base.vmap"\
             $label_src --read_labels --skip_all --split_labels\

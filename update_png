@@ -16,7 +16,7 @@ for f in $fig_dir/*.fig; do
 
   if [ "$f" -nt "$p" ]; then
     echo "creating png: $base"
-    vmap_render --contours 0 -DN --nom "$base" -d150 --map $m $f $p
+    vmap_render --contours 0 -g2 -DN --nom "$base" -d150 --map $m $f $p
     pngtopnm $p | pnmremap -mapfile=/usr/share/mapsoft/mmb.cmap.pnm |\
       pnmtopng > ${p}.tmp
     sed -i -e "3s|^$png_dir/||" "$m"
